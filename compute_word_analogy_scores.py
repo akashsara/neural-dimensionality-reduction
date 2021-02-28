@@ -1,18 +1,20 @@
 import numpy as np
 from gensim.scripts import glove2word2vec
 from gensim.models.keyedvectors import Word2VecKeyedVectors
+import os
 
 # Reproducibility
 seed = 42
 np.random.seed(seed)
 
 ### USER INPUT ###
-experiment_name = "pca_v1"
+experiment_name = "pca_v2"
 test_data_path = "data/datasets/questions-words.txt"
+input_file_format = ".glove.6B.300d.txt"
 ### END USER INPUT ###
 
-input_file = f"data/embeddings/trained/{experiment_name}.glove.6B.300d.txt"
-converted_file = f"data/embeddings/trained/{experiment_name}.glove.gensimFormat.6B.300d.txt"
+input_file = f"data/embeddings/trained/{experiment_name}{input_file_format}"
+converted_file = f"data/embeddings/trained/{experiment_name}.txt"
 
 # Convert GloVe vectors into a format usable by gensim
 _ = glove2word2vec.glove2word2vec(input_file, converted_file)
