@@ -14,12 +14,14 @@ test_data_path = "data/datasets/questions-words.txt"
 input_file = f"data/embeddings/trained/{experiment_name}.glove.6B.300d.txt"
 converted_file = f"data/embeddings/trained/{experiment_name}.glove.gensimFormat.6B.300d.txt"
 
-# Convert GloVe Vectors into a format usable by gensim
+# Convert GloVe vectors into a format usable by gensim
 _ = glove2word2vec.glove2word2vec(input_file, converted_file)
 print(f"Converted to Gensim Format: {_}")
 
+# Load converted vectors
 glove = Word2VecKeyedVectors.load_word2vec_format(converted_file)
 
+# Evaluate & Print
 print("Evaluating...")
 results = glove.evaluate_word_analogies(test_data_path, restrict_vocab=400000)
 
@@ -40,3 +42,6 @@ for item in results[1]:
         syn_incorrect += incorrect
 print(f"Semantic Accuracy: {sem_correct * 100/(sem_correct+sem_incorrect)}")
 print(f"Syntactic Accuracy: {syn_correct * 100/(syn_correct+syn_incorrect)}")
+
+# Remove converted vectors file
+os.remove(converted_file)
