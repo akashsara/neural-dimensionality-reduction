@@ -1,11 +1,13 @@
 import numpy as np
 import gensim
 import re
+import sys
+
+embedding_path = sys.argv[1] # Source Embedding
+output_path = sys.argv[2] # Save Location
 
 seed = 42
 np.random.seed(seed)
-embedding_path = "data/embeddings/glove.6B.300d.txt"
-output_path = "data/embeddings/glove.clipped.6B.300d.txt"
 
 clipped = []
 with open(embedding_path, "r", encoding='utf-8') as fp:
